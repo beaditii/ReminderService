@@ -53,12 +53,27 @@ return response;
     }
     
 }
+const subscribeEvents=async(payload)=>{
+   let service=payload.service;
+   let data=payload.data;
+   switch(service){
+    case 'CREATE_TICKET':
+       await createNotification(data);
+       break;
+    case 'SEND_BASIC_MAIL':
+        await sendBasicEmail(data);
+        break;
+    default:
+            console.log('No valid event received');
+   }
+}
 
 module.exports={
     sendBasicEmail,
     fetchPendingEmails,
     createNotification,
-    updateTicket
+    updateTicket,
+    subscribeEvents
 }
 
 
